@@ -1,0 +1,24 @@
+<!doctype html>
+<html>
+    <head>
+        <title>TrackEditor</title>
+    </head>
+    <body>
+        <h1>Track Editor</h1>
+
+
+        <a href="audioPlayer.src" id="download"> Click here to download</a>
+
+        <input type= "file" name = "userTrack" accept = "audio/*" id="fileInput">
+        <input type= "submit" value = "Upload" onClick = "chooseFile()">
+
+       	<input type= "button" value = "Play" onClick = "playAudio()">
+        
+        <audio id="audioPlayer">
+
+        <script src="trackEditor.js"></script>
+
+
+
+    </body>
+</html>
