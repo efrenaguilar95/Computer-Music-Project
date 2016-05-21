@@ -1,6 +1,7 @@
 //var finalFile;
 var audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 var source;
+var file;
 
 //chooseFile is for file upload.
 function chooseFile()
@@ -31,7 +32,7 @@ function chooseFile()
 //Called when file is selected in file browser.
 document.getElementById('fileInput').onchange = function () {
   console.log('Selected file: ' + this.value);
-  var file = URL.createObjectURL(this.files[0]);
+  file = URL.createObjectURL(this.files[0]);
   //finalFile = file;
   audioPlayer.src = file;
   source = audioCtx.createBufferSource();
@@ -48,4 +49,11 @@ function playAudio()
 	audioPlayer.play(0);
 }
 
+function setupDownload()
+{
+  //var url = (window.URL || window.webkitURL).createObjectURL(file);
+  var link = document.getElementById("download");
+  link.href = file;
+  link.download = "coolAudio.wav";
+}
 
