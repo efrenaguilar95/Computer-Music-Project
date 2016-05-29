@@ -6,7 +6,8 @@
         body{
         	background-color: #e0a33d;
         	background-image: url(http://img07.deviantart.net/8703/i/2012/306/f/0/pikachu_in_headphone_by_zipomon-d5jpwby.png);
-        	background-position: center top;
+        	background-position: center center;
+            background-repeat: no-repeat;
         	color: Red;
         	padding: 20px;}
         	
@@ -35,13 +36,14 @@
         
         <p class="Gain">
         Gain Control: 
-        <input type= "range"  min = "0" max = "200" value = "100" onchange="showValue(this.value)" >
-        <span id="range">0</span>
-         <script type="text/javascript">
-            function showValue(newValue)
-            {
-                document.getElementById("range").innerHTML=newValue;
-            }
+        <input type= "range"  min = "0" max = "200" value = "100" onchange="showValue(this.value)">
+        <span id="Gain">100</span>
+        <script type="text/javascript">
+        function showValue(newValue)
+        {
+            document.getElementById("Gain").innerHTML=newValue;
+            setGain(newValue);
+        }
         </script>
         </p>
         

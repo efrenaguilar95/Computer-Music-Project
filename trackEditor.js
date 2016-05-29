@@ -57,7 +57,6 @@ function stopAudio()
 
 function setGain(newValue)
 {
-  //document.getElementById("gain").innnerHTML=newValue;
   gainNode.gain.value = newValue/100;
 }
 
