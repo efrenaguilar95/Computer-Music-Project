@@ -51,13 +51,14 @@ function playAudio()
 
 function stopAudio()
 {
-  gainNode.gain.value = 10;
-  //source.stop();
+  //audioCtx.suspend();
+  source.stop();
 }
 
-function toggleGain()
+function setGain(newValue)
 {
-
+  //document.getElementById("gain").innnerHTML=newValue;
+  gainNode.gain.value = newValue/100;
 }
 
 
