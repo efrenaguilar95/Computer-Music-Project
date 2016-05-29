@@ -14,7 +14,15 @@
 
        	<input type= "button" value = "Play" onClick = "playAudio()">
         <input type= "button" value = "Setup Download" onClick = "setupDownload()">
-        
+        <input type= "button" value = "Stop" onClick = "stopAudio()">
+        <input type= "range"  min = "0" max = "200" value = "100" onchange="showValue(this.value)" >
+        <span id="range">0</span>
+        <script type="text/javascript">
+            function showValue(newValue)
+            {
+                document.getElementById("range").innerHTML=newValue;
+            }
+        </script>
         <audio id="audioPlayer">
 
         <script src="trackEditor.js"></script>
