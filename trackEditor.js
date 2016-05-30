@@ -2,9 +2,12 @@
 var audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 var gainNode = audioCtx.createGain();
 gainNode.connect(audioCtx.destination);
+var convolver = audioCtx.createConvolver();
 var source;
 var file;
+var reverbFile;
 var request;
+var reverbRequest;
 var audioBuffer;
 var audioBits;
 
@@ -60,6 +63,29 @@ function setGain(newValue)
   gainNode.gain.value = newValue/100;
 }
 
+document.getElementById("reverbSelector").onchange = function(){
+  console.log('Selected file: ' + this.value);
+  reverbFile = URL.createObjectURL(this.files[0]);
+  reverbRequest = new XMLHttpRequest();
+  reverbRequest.open('GET', reverbFile, true);
+  console.log("WTF")
+  reverbRequest.responseType = 'arraybuffer';
+}
+
+function setReverb()
+{
+  reverbRequest.onload = function(){
+    var audioData = reverbRequest.response;
+
+    audioCtx.decodeAudioData(audioData, function(buffer){
+      convolver.buffer = buffer;
+      source.connect(convolver);
+      convolver.connect(gainNode);
+    },
+    function(e){"Error with decoding audio data" + e.err});
+  }
+  reverbRequest.send();
+}
 
 function setupDownload()
 {
