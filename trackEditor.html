@@ -8,11 +8,14 @@
         	background-image: url(http://img07.deviantart.net/8703/i/2012/306/f/0/pikachu_in_headphone_by_zipomon-d5jpwby.png);
         	background-position: center center;
             background-repeat: no-repeat;
-        	color: Red;
-        	padding: 20px;}
+        	color: Green;
+        	padding: 210px;}
         	
         p.FileSelection{
-        font-size: 200%;}
+        font-size: 100%;}
+        
+        p.Vibrato{
+        font-size: 100%;}
         
         p.Gain{
         font-size: 100%;}
@@ -33,7 +36,10 @@
        	<input type= "button" value = "Play" onClick = "playAudio()">
         <input type= "button" value = "Stop" onClick = "stopAudio()">
         </p>
-        
+        <p class="Vibrato">
+        Vibrato Control: 
+        <input type= "range"  min = "0" max = "10" value = "0" onchange="setVibrato(this.value)">
+        </p>
         <p class="Gain">
         Gain Control: 
         <input type= "range"  min = "0" max = "200" value = "100" onchange="showValue(this.value)">

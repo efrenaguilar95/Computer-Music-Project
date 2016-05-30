@@ -10,6 +10,11 @@ var request;
 var reverbRequest;
 var audioBuffer;
 var audioBits;
+var LFO = audioCtx.createOscillator();
+LFO.frequency.value = 0;
+LFO.connect(gainNode.gain);
+
+
 
 //chooseFile is for file upload.
 function chooseFile()
@@ -22,6 +27,7 @@ function chooseFile()
         source.buffer = buffer;
 
         source.connect(gainNode);
+        LFO.connect(source);
         source.loop = true;
       },
 
@@ -50,14 +56,19 @@ document.getElementById('fileInput').onchange = function () {
 function playAudio()
 {
 	source.start();
+	LFO.start();
 }
 
 function stopAudio()
 {
   //audioCtx.suspend();
   source.stop();
+  LFO.stop();
 }
 
+function setVibrato(newValue){
+	LFO.frequency.value = newValue;
+}
 function setGain(newValue)
 {
   gainNode.gain.value = newValue/100;
@@ -90,8 +101,12 @@ function setReverb()
 function setupDownload()
 {
   audioBits = source.buffer.getChannelData(0);
+//<<<<<<< Updated upstream
   console.log(audioBits.buffer);
   var blob = new Blob();
+//=======
+  var blob = new blob(audioBits);
+//>>>>>>> Stashed changes
   //console.log(audioBits);
   //var url = (window.URL || window.webkitURL).createObjectURL(blob);
   //var link = document.getElementById("download");
