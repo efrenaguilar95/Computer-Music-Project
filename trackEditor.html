@@ -1,68 +1,115 @@
 <!doctype html>
 <html>
     <head>
-        <title>TrackEditor</title>
+        <title>IN4MTX 190 Final Project</title>
+		
+		<!--Create stylesheet in the html code for the entire site.
+			Controls the background color, font style, font color, borders,
+			and padding for the entire page.
+		-->
         <style type="text/css">
-        body{
-        	background-color: #e0a33d;
-        	background-image: url(http://img07.deviantart.net/8703/i/2012/306/f/0/pikachu_in_headphone_by_zipomon-d5jpwby.png);
-        	background-position: center center;
-            background-repeat: no-repeat;
-        	color: Green;
-        	padding: 210px;}
+			*{
+			font-family: Comic Sans, Comic Sans MS, cursive;}
+		
+			body{
+				background-color: #e0a33d;
+				background-image: url(http://img07.deviantart.net/8703/i/2012/306/f/0/pikachu_in_headphone_by_zipomon-d5jpwby.png);
+				background-position: center center;
+				background-repeat: no-repeat;
+				color: #ac00e6;
+				border: 10px solid black;
+				padding: 180px;}
         	
-        p.FileSelection{
-        font-size: 100%;}
+			p.FileSelection{
+				padding: 20px;
+				font-size: 100%;}
         
-        p.Vibrato{
-        font-size: 100%;}
+			p.Vibrato{
+				padding: 5px;
+				font-size: 100%;}
         
-        p.Gain{
-        font-size: 100%;}
+			p.Gain{
+				padding: 5px;
+				font-size: 100%;}
+		
+			p.Reverb{
+				padding: 5px;
+				font-size: 100%;}
         </style>
     </head>
     
     <body>
-    <center>
-        <h1>Track Editor</h1>
-
-		<p class="FileSelection">
-        <input type= "file" name = "userTrack" accept = "audio/*" id="fileInput">
-        <input type= "submit" value = "Upload" onClick = "chooseFile()">
-		</p>
+	<!-- Code for html controls for Track Editor.-->
+	<div id="header"> <center> <h1>IN4MTX 190 Final Project: <br>Track Editor</h1> </center> </div>
+	
+	<div id="section">
+	<section>
+		<center>
+		<!--Allows user to select file for file manipulation, then 
+		calls appropriate javascript code that will convert file 
+		into a usable form for the purpose of the project.-->
+			<p class="FileSelection">
+				Select Audio File:
+				<input type= "file" name = "userTrack" accept = "audio/*" id="fileInput">
+				<input type= "submit" value = "Upload" align="right" onClick = "chooseFile()" >
+			</p>
+		<!--Allows the user to add vibrato to a audio file by changing the slider displayed-->
+			<p class="Vibrato">
+				Vibrato Control: 
+				<input type= "range"  min = "0" max = "10" value = "0" onchange="showVibratoValue(this.value)">
+				<span id="Vibrato">0</span>
+				<script type="text/javascript">
+				function showVibratoValue(newValue)
+				{
+					document.getElementById("Vibrato").innerHTML=newValue;
+					setVibrato(newValue);
+				}
+				</script>
+			</p>
 		
-       	<p class="PlayStop">
-       	Play/Pause: 
-       	<input type= "button" value = "Play" onClick = "playAudio()">
-        <input type= "button" value = "Stop" onClick = "stopAudio()">
-        </p>
-        <p class="Vibrato">
-        Vibrato Control: 
-        <input type= "range"  min = "0" max = "10" value = "0" onchange="setVibrato(this.value)">
-        </p>
-        <p class="Gain">
-        Gain Control: 
-        <input type= "range"  min = "0" max = "200" value = "100" onchange="showValue(this.value)">
-        <span id="Gain">100</span>
-        <script type="text/javascript">
-        function showValue(newValue)
-        {
-            document.getElementById("Gain").innerHTML=newValue;
-            setGain(newValue);
-        }
-        </script>
-        </p>
-        
-        <input type= "file" value = "Reverb" accept = "audio/*" id="reverbSelector">
-        <input type= "submit" value = "Enable Reverb" onClick = "setReverb()">
-        
-        <input type= "button" value = "Setup Download" onClick = "setupDownload()">
+		<!--Gives the user ability to change the gain by controling the slider provided.-->
+			<p class="Gain">
+				Gain Control: 
+				<input type= "range"  min = "0" max = "200" value = "100" onchange="showGainValue(this.value)">
+				<span id="Gain">100</span>
+				<script type="text/javascript">
+				function showGainValue(newValue)
+				{
+					document.getElementById("Gain").innerHTML=newValue;
+					setGain(newValue);
+				}
+				</script>
+			</p>
+		
+		<!--Allows the user to add a reverb effect to the audio file.-->
+			<p class="Reverb">
+				Reverb Control:
+				<input type= "file" value = "Reverb" accept = "audio/*" id="reverbSelector">
+				<input type= "submit" value = "Enable Reverb" onClick = "setReverb()">
+			</p>
+		<!-- Adds a Play and Pause button.-->
+			<p class="PlayStop">
+				Play/Pause: 
+				<input type= "button" value = "Play" onClick = "playAudio()">
+				<input type= "button" value = "Stop" onClick = "stopAudio()">
+			</p>
+		
+        <!--<input type= "button" value = "Setup Download" onClick = "setupDownload()">-->
        
-        <audio id="audioPlayer">
+			<audio id="audioPlayer">
 
-        <script src="trackEditor.js"></script>
-
-
-	</center>
+			<script src="trackEditor.js"></script>
+		</center>
+	</section>
+	</div>
+	
+	<div>
+	<section>
+		<center>
+		<p> Group Members: Efren Aguilar and Gustavo Figueroa</p>
+		</center>
+	</section>
+	</div>
+	
     </body>
 </html>

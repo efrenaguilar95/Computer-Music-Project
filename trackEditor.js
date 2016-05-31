@@ -1,39 +1,47 @@
-//var finalFile;
+//Creation of all necessary variables for program.
 var audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
+//gainNode is used for controlling the gain of the audio file.
 var gainNode = audioCtx.createGain();
 gainNode.connect(audioCtx.destination);
+
 var convolver = audioCtx.createConvolver();
+
+//Variables used to upload audio file to page.
 var source;
 var file;
-var reverbFile;
 var request;
+
+//Variables used for reverb effect.
+var reverbFile;
 var reverbRequest;
+
 var audioBuffer;
-var audioBits;
+
+//var audioBits;
+
+//Variables used for Vibrato effect.
 var LFO = audioCtx.createOscillator();
 LFO.frequency.value = 0;
 LFO.connect(gainNode.gain);
 
 
-
-//chooseFile is for file upload.
+//This function uploads the file to decode it and allows for 
+//the audio file to be manipulated.
 function chooseFile()
 {
+	console.log("file upload")
 	request.onload = function() {
-    console.log("hi3");
     var audioData = request.response;
 
     audioBuffer = audioCtx.decodeAudioData(audioData, function(buffer) {
         source.buffer = buffer;
 
         source.connect(gainNode);
-        LFO.connect(source);
         source.loop = true;
       },
 
       function(e){"Error with decoding audio data" + e.err});
-    //console.log(source);
-    //console.log(audioBuffer, "jkdsjwdka");
   }
   request.send();
 
@@ -41,11 +49,11 @@ function chooseFile()
 }
 
 
-//Called when file is selected in file browser.
+//This segments allows for an audio file to be loaded into and html page,
+//and stores it into a buffer.
 document.getElementById('fileInput').onchange = function () {
   console.log('Selected file: ' + this.value);
   file = URL.createObjectURL(this.files[0]);
-  //finalFile = file;
   audioPlayer.src = file;
   source = audioCtx.createBufferSource();
   request = new XMLHttpRequest();
@@ -53,36 +61,42 @@ document.getElementById('fileInput').onchange = function () {
   request.responseType = 'arraybuffer';
 };
 
+//Function for Play button.
 function playAudio()
 {
 	source.start();
 	LFO.start();
 }
 
+//Function for Stop button.
 function stopAudio()
 {
-  //audioCtx.suspend();
   source.stop();
   LFO.stop();
 }
 
+//Fucntion for controling the vibrato
 function setVibrato(newValue){
 	LFO.frequency.value = newValue;
 }
+
+//Function for controling the gain value.
 function setGain(newValue)
 {
   gainNode.gain.value = newValue/100;
 }
 
+
+//Allows for the upload of the necessary file used in reverb effect.
 document.getElementById("reverbSelector").onchange = function(){
   console.log('Selected file: ' + this.value);
   reverbFile = URL.createObjectURL(this.files[0]);
   reverbRequest = new XMLHttpRequest();
   reverbRequest.open('GET', reverbFile, true);
-  console.log("WTF")
   reverbRequest.responseType = 'arraybuffer';
 }
 
+//Changes the reverb audio file so it can be used in the program.
 function setReverb()
 {
   reverbRequest.onload = function(){
@@ -98,19 +112,19 @@ function setReverb()
   reverbRequest.send();
 }
 
-function setupDownload()
-{
-  audioBits = source.buffer.getChannelData(0);
+//function setupDownload()
+//{
+  //audioBits = source.buffer.getChannelData(0);
 //<<<<<<< Updated upstream
-  console.log(audioBits.buffer);
-  var blob = new Blob();
+  //console.log(audioBits.buffer);
+  //var blob = new Blob();
 //=======
-  var blob = new blob(audioBits);
+  //var blob = new blob(audioBits);
 //>>>>>>> Stashed changes
   //console.log(audioBits);
   //var url = (window.URL || window.webkitURL).createObjectURL(blob);
   //var link = document.getElementById("download");
   //link.href = url;
   //link.download = "coolAudio.wav";
-}
+//}
 
